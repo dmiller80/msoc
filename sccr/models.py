@@ -138,15 +138,17 @@ class Player(models.Model):
 
 class Match(models.Model):
     match_id = models.IntegerField(blank=False, null=False)
-    # How do you create the match quest team?
     home_team = models.ForeignKey(Team, on_delete=models.DO_NOTHING, related_name='home_team')
     guest_team = models.ForeignKey(Team, on_delete=models.DO_NOTHING, related_name='guest_team')
     field = models.ForeignKey(Field, on_delete=models.DO_NOTHING, related_name='field')
     referee = models.ForeignKey(Referee, on_delete=models.DO_NOTHING, related_name='referee')
     start_time = models.DateTimeField(default=timezone.now)
     match_date = models.DateField()
-    score = models.CharField(max_length=10)
-
+    home_team_score = models.IntegerField(default=0)
+    guest_team_score = models.IntegerField(default=0)
+    # Note-allow misc notes for capturing things such as red cards to players
+    match_notes = models.CharField(max_length=200, blank=True)
+    match_players_goals_scored = models.CharField(max_length=200, blank=True)
     created_date = models.DateTimeField(
         default=timezone.now)
     updated_date = models.DateTimeField(auto_now_add=True)
