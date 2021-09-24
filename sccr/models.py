@@ -1,5 +1,6 @@
 from django.utils import timezone
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 # import requests
 
@@ -92,6 +93,8 @@ class Team(models.Model):
     # If a picture is provided set team_picture flag true
     # Pic upload feature needed to support upload of the pic
     team_picture = models.BooleanField()
+    # Will default to the admin user id
+    coach_uid = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING, default=1)
     coach = models.CharField(max_length=50)
     coach_email = models.CharField(max_length=200)
     coach_phone = models.CharField(max_length=50)
